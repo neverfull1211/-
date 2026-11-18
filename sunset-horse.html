@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>夕阳白马</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #2a1530; }
+  body { display: flex; align-items: center; justify-content: center; }
+  svg { width: 100%; height: 100%; display: block; }
+
+  /* 由右向左奔跑 */
+  .run { animation: run 9s linear infinite; }
+  @keyframes run {
+    from { transform: translate(1380px, 0); }
+    to   { transform: translate(-260px, 0); }
+  }
+  .bob { animation: bob .6s ease-in-out infinite; transform-box: view-box; transform-origin: 0 0; }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25%      { transform: translateY(-7px) rotate(-2deg); }
+    50%      { transform: translateY(-2px) rotate(1deg); }
+    75%      { transform: translateY(-9px) rotate(1.5deg); }
+  }
+
+  .leg, .shin, .tail, .mane { transform-box: view-box; transform-origin: 0 0; animation-duration: .6s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+  .front .leg  { animation-name: frontUpper; }
+  .front .shin { animation-name: frontLower; }
+  .hind  .leg  { animation-name: hindUpper; }
+  .hind  .shin { animation-name: hindLower; }
+  .d1 .leg, .d1 .shin { animation-delay: -.08s; }
+  .d2 .leg, .d2 .shin { animation-delay: -.30s; }
+  .d3 .leg, .d3 .shin { animation-delay: -.38s; }
+
+  @keyframes frontUpper {
+    0%   { transform: rotate(-30deg); }
+    40%  { transform: rotate(-5deg); }
+    62%  { transform: rotate(38deg); }
+    80%  { transform: rotate(30deg); }
+    100% { transform: rotate(-30deg); }
+  }
+  @keyframes frontLower {
+    0%   { transform: rotate(-10deg); }
+    25%  { transform: rotate(-95deg); }
+    50%  { transform: rotate(-45deg); }
+    65%  { transform: rotate(0deg); }
+    100% { transform: rotate(-10deg); }
+  }
+  @keyframes hindUpper {
+    0%   { transform: rotate(32deg); }
+    50%  { transform: rotate(-38deg); }
+    100% { transform: rotate(32deg); }
+  }
+  @keyframes hindLower {
+    0%   { transform: rotate(0deg); }
+    45%  { transform: rotate(12deg); }
+    65%  { transform: rotate(75deg); }
+    85%  { transform: rotate(30deg); }
+    100% { transform: rotate(0deg); }
+  }
+  .tail { animation-name: tail; }
+  @keyframes tail { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(10deg); } }
+  .mane { animation-name: mane; }
+  @keyframes mane { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(4deg); } }
+
+  .shadow { animation: shadow .6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes shadow { 0%,100% { transform: scaleX(1); opacity: .45; } 75% { transform: scaleX(.85); opacity: .3; } }
+
+  .sun { animation: sink 30s ease-in-out infinite alternate; }
+  @keyframes sink { from { transform: translateY(-10px); } to { transform: translateY(22px); } }
+
+  .bird { animation: fly 22s linear infinite; }
+  @keyframes fly { from { transform: translate(1250px, 0); } to { transform: translate(-150px, -40px); } }
+  .wing { animation: flap .5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center; }
+  @keyframes flap { from { transform: scaleY(1); } to { transform: scaleY(-.4); } }
+
+  .dust circle { animation: dust 1.2s ease-out infinite; }
+  @keyframes dust { from { opacity: .5; transform: translate(0,0) scale(.6); } to { opacity: 0; transform: translate(40px,-14px) scale(1.6); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .run { animation: none; transform: translate(620px, 0); }
+    .bob, .leg, .shin, .tail, .mane, .shadow, .sun, .bird, .wing, .dust circle { animation: none; }
+  }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" role="img" aria-label="夕阳西下，一匹白色骏马由右向左奔跑">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"   stop-color="#2b1844"/>
+      <stop offset=".35" stop-color="#8a3a5c"/>
+      <stop offset=".62" stop-color="#e9724c"/>
+      <stop offset=".78" stop-color="#ffb35c"/>
+      <stop offset="1"   stop-color="#ffd98a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0"  stop-color="#fff3c4" stop-opacity=".95"/>
+      <stop offset=".25" stop-color="#ffd27a" stop-opacity=".6"/>
+      <stop offset="1"  stop-color="#ff8a4c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sunfill" cx=".45" cy=".4" r=".6">
+      <stop offset="0" stop-color="#fffbe6"/>
+      <stop offset=".7" stop-color="#ffe08a"/>
+      <stop offset="1" stop-color="#ffb347"/>
+    </radialGradient>
+    <linearGradient id="field" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6b3a3a"/>
+      <stop offset="1" stop-color="#2a1426"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0"  stop-color="#ffffff"/>
+      <stop offset=".55" stop-color="#fbf1ea"/>
+      <stop offset="1"  stop-color="#efd2c2"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f6efe8"/>
+      <stop offset="1" stop-color="#e6cdbf"/>
+    </linearGradient>
+    <clipPath id="horizon"><rect x="0" y="0" width="1200" height="452"/></clipPath>
+  </defs>
+
+  <!-- 天空 -->
+  <rect width="1200" height="640" fill="url(#sky)"/>
+
+  <!-- 星点 -->
+  <g fill="#fff" opacity=".55">
+    <circle cx="120" cy="60" r="1.2"/><circle cx="310" cy="35" r="1"/><circle cx="520" cy="80" r="1.1"/>
+    <circle cx="860" cy="45" r="1.3"/><circle cx="1040" cy="90" r="1"/><circle cx="700" cy="25" r=".9"/>
+  </g>
+
+  <!-- 夕阳 -->
+  <g class="sun" clip-path="url(#horizon)">
+    <circle cx="420" cy="420" r="260" fill="url(#glow)"/>
+    <circle cx="420" cy="420" r="78" fill="url(#sunfill)"/>
+  </g>
+
+  <!-- 晚霞云 -->
+  <g opacity=".85">
+    <path d="M40 250 q60 -22 130 -6 q50 -18 110 2 q30 8 -10 14 h-220 q-30 -4 -10 -10z" fill="#f3a36b"/>
+    <path d="M620 190 q80 -26 170 -4 q60 -16 130 6 q30 10 -12 14 h-280 q-28 -6 -8 -16z" fill="#d96f6a"/>
+    <path d="M880 300 q50 -14 110 0 q40 -10 90 4 q20 6 -8 10 h-190 q-22 -4 2 -14z" fill="#ffbf73"/>
+    <path d="M200 330 q70 -10 150 0 q20 4 -6 7 h-150 q-14 -3 6 -7z" fill="#ffd08a" opacity=".8"/>
+  </g>
+
+  <!-- 飞鸟 -->
+  <g class="bird">
+    <g transform="translate(0,150)" fill="none" stroke="#3a1a34" stroke-width="2" stroke-linecap="round">
+      <path class="wing" d="M0 0 q8 -8 16 0 q8 -8 16 0"/>
+      <path class="wing" d="M40 18 q6 -6 12 0 q6 -6 12 0" style="animation-delay:-.2s"/>
+    </g>
+  </g>
+
+  <!-- 远山 -->
+  <path d="M0 410 L80 360 L160 390 L250 330 L350 385 L470 345 L560 395 L680 340 L790 380 L900 325 L1010 375 L1110 345 L1200 380 L1200 460 L0 460 Z" fill="#8c4359" opacity=".55"/>
+  <path d="M0 430 C120 400 220 425 330 410 C460 392 560 430 690 412 C820 395 930 428 1050 410 C1120 400 1170 412 1200 418 L1200 470 L0 470 Z" fill="#5e2d4a" opacity=".8"/>
+
+  <!-- 草原 -->
+  <rect x="0" y="452" width="1200" height="188" fill="url(#field)"/>
+  <path d="M0 452 H1200" stroke="#ffcf8a" stroke-opacity=".5" stroke-width="2"/>
+  <!-- 地面上的夕阳倒影光带 -->
+  <path d="M380 452 L460 452 L520 640 L320 640 Z" fill="#ffcf8a" opacity=".12"/>
+  <!-- 草丛 -->
+  <g stroke="#2a1426" stroke-width="2" stroke-linecap="round" opacity=".7">
+    <path d="M60 600 l-4 -18 M66 600 l2 -22 M72 600 l6 -16"/>
+    <path d="M300 620 l-5 -20 M307 620 l1 -24 M314 620 l6 -18"/>
+    <path d="M760 610 l-4 -18 M766 610 l2 -22 M772 610 l6 -15"/>
+    <path d="M1080 625 l-5 -20 M1087 625 l1 -24 M1094 625 l6 -18"/>
+  </g>
+
+  <!-- 白马：由右向左奔跑 -->
+  <g class="run">
+    <g transform="translate(0,412) scale(1.35)">
+      <!-- 影子 -->
+      <ellipse class="shadow" cx="10" cy="91" rx="95" ry="7" fill="#1a0b18"/>
+      <!-- 扬尘 -->
+      <g class="dust" fill="#e8b48a">
+        <circle cx="70" cy="86" r="6"/>
+        <circle cx="90" cy="84" r="4" style="animation-delay:-.4s"/>
+        <circle cx="60" cy="88" r="5" style="animation-delay:-.8s"/>
+      </g>
+
+      <g class="bob">
+        <!-- 远侧腿（稍暗） -->
+        <g fill="#e2c6b8">
+          <g class="hind d1" transform="translate(52,12)">
+            <g class="leg">
+              <path d="M-11 -6 C-12 16 -7 30 -4 40 L5 40 C7 28 11 14 11 -6 Z"/>
+              <g transform="translate(0,40)"><g class="shin">
+                <path d="M-4 0 L-3 30 L-5 36 L5 36 L4 30 L5 0 Z"/>
+                <path d="M-5 33 L6 33 L7 40 L-6 40 Z" fill="#4a2c2a"/>
+              </g></g>
+            </g>
+          </g>
+          <g class="front d3" transform="translate(-52,12)">
+            <g class="leg">
+              <path d="M-9 -6 C-10 16 -6 30 -4 40 L4 40 C6 30 9 16 9 -6 Z"/>
+              <g transform="translate(0,40)"><g class="shin">
+                <path d="M-4 0 L-3 30 L-5 36 L5 36 L4 30 L4 0 Z"/>
+                <path d="M-5 33 L6 33 L7 40 L-6 40 Z" fill="#4a2c2a"/>
+              </g></g>
+            </g>
+          </g>
+        </g>
+
+        <!-- 尾巴 -->
+        <g transform="translate(84,-18)">
+          <g class="tail">
+            <path d="M0 0 C25 -10 50 0 72 18 C60 14 52 16 58 30 C44 16 34 18 36 34 C24 18 12 12 0 12 Z" fill="url(#hair)"/>
+          </g>
+        </g>
+
+        <!-- 身体 -->
+        <path d="M-70 -8 C-76 -36 -40 -42 0 -38 C40 -36 78 -42 88 -16 C96 8 78 30 50 28 C20 30 -20 31 -50 26 C-74 21 -70 6 -70 -8 Z" fill="url(#coat)"/>
+        <!-- 颈与头（朝左） -->
+        <path d="M-74 8 C-88 -14 -94 -36 -98 -56 C-108 -58 -120 -58 -130 -62 C-138 -66 -139 -77 -130 -83 C-121 -93 -112 -101 -106 -105 L-104 -118 L-97 -105 C-86 -98 -74 -80 -58 -55 C-50 -42 -38 -36 -28 -36 L-48 12 Z" fill="url(#coat)"/>
+        <!-- 眼与鼻孔 -->
+        <circle cx="-110" cy="-86" r="2.4" fill="#2b1a22"/>
+        <circle cx="-129" cy="-68" r="1.6" fill="#8a6a66"/>
+        <!-- 鬃毛 -->
+        <g transform="translate(-100,-102)">
+          <g class="mane">
+            <path d="M0 0 C14 6 26 24 40 46 C50 60 62 66 74 66 C62 72 50 68 42 58 C44 66 40 70 36 72 C34 62 28 54 22 46 C20 54 16 58 12 60 C12 46 8 30 0 18 Z" fill="url(#hair)"/>
+          </g>
+        </g>
+
+        <!-- 近侧腿 -->
+        <g fill="url(#coat)">
+          <g class="hind" transform="translate(58,14)">
+            <g class="leg">
+              <path d="M-12 -8 C-13 16 -7 30 -4 40 L5 40 C7 28 12 14 12 -8 Z"/>
+              <g transform="translate(0,40)"><g class="shin">
+                <path d="M-4 0 L-3 30 L-5 36 L5 36 L4 30 L5 0 Z"/>
+                <path d="M-5 33 L6 33 L7 40 L-6 40 Z" fill="#3a2220"/>
+              </g></g>
+            </g>
+          </g>
+          <g class="front d2" transform="translate(-46,14)">
+            <g class="leg">
+              <path d="M-10 -8 C-11 16 -6 30 -4 40 L4 40 C6 30 10 16 10 -8 Z"/>
+              <g transform="translate(0,40)"><g class="shin">
+                <path d="M-4 0 L-3 30 L-5 36 L5 36 L4 30 L4 0 Z"/>
+                <path d="M-5 33 L6 33 L7 40 L-6 40 Z" fill="#3a2220"/>
+              </g></g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- 题字 -->
+  <text x="1150" y="70" text-anchor="end" font-family="'Noto Serif SC','Songti SC','STSong',serif" font-size="34" fill="#fff4e0" opacity=".85" letter-spacing="8">夕阳西下</text>
+  <text x="1150" y="105" text-anchor="end" font-family="'Noto Serif SC','Songti SC','STSong',serif" font-size="16" fill="#fff4e0" opacity=".6" letter-spacing="4">白马自东来</text>
+</svg>
+</body>
+</html>
